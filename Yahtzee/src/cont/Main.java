@@ -4,8 +4,9 @@ import javax.swing.JOptionPane;
 
 public class Main {
 	public static void main(String[] args) {
+		//Opens a window with a message listed in the parameter when you first open the game
 		JOptionPane.showMessageDialog(null, "Welcome to Yahtzee!\nYour goal in this game is to achieve as many as the same number as possible!\nOnly problem is, you only get 3 rounds to do so,\nGoodluck!");
-		//All the shit
+		//Instance variables
 		int x = 0;
 		int score2 = 0;
 		boolean repeat = true;
@@ -17,7 +18,7 @@ public class Main {
 		boolean fiveuse = false;
 		boolean sixuse = false;
 		
-		//WHILE LOOP (game start)
+		//Makes the game go on forever, forever randomzing 5 numbers through 1-6
 		while(repeat){
 		int num1 = (int)(Math.random()*6 + 1);
 		int num2 = (int)(Math.random()*6 + 1);
@@ -31,9 +32,9 @@ public class Main {
 		ifSeven(num5);
 		int Rolls = 3;
 		int result2 = 0;
-		//Le Intro
 		
-		//Numbers with buttons
+		
+		//More instance variables in the form of option buttons as a string array
 		String[] options1 = {
 				"1",
 				"2",
@@ -51,7 +52,10 @@ public class Main {
 				"4",
 				"5",
 		};
-			
+		//For loop, looping until the player runs out of rolls
+		//Inside the loop it checks what button the player picks
+		//Depending on this button it will do something correlating with what button they pressed
+		//First 5 buttons randomizing that correlating spot that they selected
 		for(int i = 0; i < Rolls; i+=0){
 			int result = w.option(options1,"Select how many numbers you would like to change:"+"\nRolls: "+Rolls+"\n["+num1+"]  "+"["+num2+"]  "+"["+num3+"]  "+"["+num4+"]  "+"["+num5+"]", "Yahtzee", JOptionPane.YES_NO_CANCEL_OPTION)+1;
 			buttons(result, Rolls);
@@ -90,6 +94,8 @@ public class Main {
 		}
 	
 	}
+
+	//GUI that allows the user to add up their score for a specific number
 	String s = JOptionPane.showInputDialog(null, "["+num1+"]  "+"["+num2+"]  "+"["+num3+"]  "+"["+num4+"]  "+"["+num5+"]"+"\nWhat number do you want to add points up for?"+
 	
 			"\nFor Ones pick:   1"+"   /Score = "+ones(0, num1, num2, num3, num4, num5)*1+
@@ -98,9 +104,12 @@ public class Main {
 			"\nFor Fours pick:  4"+"   /Score = "+fours(0, num1, num2, num3, num4, num5)*4+
 			"\nFor Fives pick:  5"+"   /Score = "+fives(0, num1, num2, num3, num4, num5)*5+
 			"\nFor Sixes pick:  6"+"   /Score = "+sixes(0, num1, num2, num3, num4, num5)*6);
+	//Parses the score so we can add an option for when that score is actuall selected
 	int score = Integer.parseInt(s);
+
 	
-	
+	//If statements for what score the user decides to add up
+	//Each one adds up the score of all the numbers with the specific requirements and sets that to the score
 	if(score == 1 && oneuse == false){
 		w.msg("Score is: "+ones(score, num1, num2, num3, num4, num5)*1);
 		score2 += ones(score, num1, num2, num3, num4, num5)*1;
@@ -134,6 +143,8 @@ public class Main {
 
 	x += score2;
 	
+	//Displays end result of the total score
+	//Gives the user an option to repeat the game if they say no the game closses by stopping the while loop from the beginning
 	w.msg("TotalScore: "+x);
 	String f = w.in("Do you want to keep going?\n(1 = Yes)\n(2 = No)");
 	int u = Integer.parseInt(f);
@@ -156,7 +167,8 @@ public class Main {
 	return x;	
 	}
 	
-	//Method for what the buttons do
+	//Controls what happens if the user selects help none or decides to quit the game
+	//If exit the game closes, if none they run out of rolls, if help a window opens with helpfull info on the game
 	public static void buttons(int result, int Rolls){
 		if(result == 8){
 			System.exit(0);
@@ -170,7 +182,8 @@ public class Main {
 		}
 	}
 	
-	//JuJu Method
+	//Method we use when the user selects to change a number by rerolling it
+	//Works by randomizing that specific number depending on the players choice
 	public static void reRoll(int score, int return2, int num1, int num2, int num3, int num4, int num5){
 		if(return2 == 1){
 			num1 = (int)(Math.random()*6 + 1);
@@ -189,6 +202,8 @@ public class Main {
 		}
 	}
 	
+	//Ones twos threes fours fives and sixes methods add up the
+	//Correct amount of score depending on their correlating value
 	public static int ones(int score, int num1, int num2, int num3, int num4, int num5){
 		int ones = 0;
 		
@@ -305,7 +320,8 @@ public class Main {
 		return sixes;
 	}
 	
-	//6 false methods
+	//Methods that just change the booleans to true for when the user selects to get the score of a specific number
+	//It opens up that number as an option when the method is called
 	
 	public static void ones2(boolean oneuse){
 		oneuse = true;
